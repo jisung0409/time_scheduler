@@ -72,9 +72,9 @@ async function generateQuests() {
         // JSON 이라는 컴퓨터가 읽기 쉬운 깔끔한 데이터 형태로 대답하라고 매우 강하고 구체적으로 명령합니다.
         const promptText = `내 목표는 "${goal}"야. 이 목표를 향해 나아가기 위해 오늘 당장 실천할 수 있는 흥미로운 일일 퀘스트 3개를 만들어줘. \n반드시 아래와 같은 JSON 배열 형태로만 대답해줘. 마크다운 기호(\`\`\`json) 등은 절대 쓰지 마.\n[ { "title": "퀘스트 이름", "description": "재미있는 퀘스트 상세 설명", "difficulty": "쉬움" }, ... ]\n난이도는 "쉬움", "보통", "어려움" 중 하나로 적어줘.`;
 
-        // 인터넷을 통해 구글 제미나이 최신 모델(gemini-1.5-flash)에게 요청을 보냅니다 (fetch 사용).
+        // 인터넷을 통해 구글 제미나이 최신 모델(gemini-2.5-flash)에게 요청을 보냅니다 (fetch 사용).
         // await는 "응답이 올 때까지 여기서 잠깐만 기다려!" 라는 뜻입니다.
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`, {
             // 새 정보를 보내는 것이므로 POST 방식을 사용합니다.
             method: 'POST',
             // 우리가 보내는 데이터가 JSON 형식이라는 것을 알려줍니다. (편지봉투에 내용물이 뭔지 적어두는 것과 같습니다)
