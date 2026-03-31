@@ -1,6 +1,17 @@
-// === 주의: 여기에 본인의 구글 제미나이(Gemini) API 키를 적어주세요! ===
-// (따옴표 안에 영어와 숫자로 된 긴 키를 붙여넣으면 됩니다)
-const API_KEY = 'AIzaSyB1sLV_nzzn4MEnqQZgx1YzNrmHrZKhl9g'; // 여기에 API 키를 입력하세요
+// === 보안 강화: API 키를 소스코드에 직접 적지 않습니다! ===
+// 사용자가 웹사이트를 처음 방문할 때 API 키를 물어보고, 브라우저(localStorage)에만 저장합니다.
+// 이렇게 하면 GitHub에 소스코드를 올려도 본인의 API 키는 안전하게 보호됩니다.
+let API_KEY = localStorage.getItem('GEMINI_API_KEY') || '';
+
+// 만약 저장된 API 키가 없다면, 사용자에게 입력을 요청합니다.
+if (!API_KEY) {
+    const userKey = prompt('구글 제미나이(Gemini) API 키를 입력해 주세요.\n(이 키는 브라우저에만 안전하게 저장되며, 소스코드에는 남지 않습니다.)');
+    if (userKey) {
+        API_KEY = userKey.trim();
+        localStorage.setItem('GEMINI_API_KEY', API_KEY);
+        alert('API 키가 저장되었습니다! 이제 목표를 입력하고 퀘스트를 생성해 보세요.');
+    }
+}
 
 // 웹페이지의 요소(태그)들을 자바스크립트로 조종하기 위해 이름을 달아 가져옵니다.
 // index.html에서 id 속성으로 적어둔 이름표를 찾아 꺼내옵니다.
@@ -35,8 +46,13 @@ async function generateQuests() {
     }
 
     // 만약 코드 상단에 API 키를 안 넣고 실행했다면 화면에 친절하게 안내 문구를 띄워줍니다.
-    if (API_KEY === '') {
-        alert('앗! 자바스크립트 파일(script.js) 두 번째 줄에 API 키를 먼저 넣어주세요.');
+    if (!API_KEY) {
+        const userKey = prompt('앗! API 키가 설정되지 않았습니다. 다시 입력해 주세요:');
+        if (userKey) {
+            API_KEY = userKey.trim();
+            localStorage.setItem('GEMINI_API_KEY', API_KEY);
+            alert('API 키가 저장되었습니다. 다시 생성 버튼을 눌러주세요!');
+        }
         return;
     }
 
