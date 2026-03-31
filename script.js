@@ -5,11 +5,11 @@ let API_KEY = localStorage.getItem('GEMINI_API_KEY') || '';
 
 // 만약 저장된 API 키가 없다면, 사용자에게 입력을 요청합니다.
 if (!API_KEY) {
-    const userKey = prompt('구글 제미나이(Gemini) API 키를 입력해 주세요.\n(이 키는 브라우저에만 안전하게 저장되며, 소스코드에는 남지 않습니다.)');
+    const userKey = prompt('오라, 선택받은 자여. 이 세상을 변화시킬 "성스러운 마나의 정수(API Key)"를 바쳐 마법진을 완성하라.\n(그대의 비술은 이 브라우저의 성역 뒤에 영원히 숨겨질 것이니 안심하라.)');
     if (userKey) {
         API_KEY = userKey.trim();
         localStorage.setItem('GEMINI_API_KEY', API_KEY);
-        alert('API 키가 저장되었습니다! 이제 목표를 입력하고 퀘스트를 생성해 보세요.');
+        alert('보라! 성스러운 마법진이 마침내 깨어났다. 이제 그대의 염원을 담아 신의 계시를 구하라.');
     }
 }
 
@@ -40,18 +40,18 @@ async function generateQuests() {
     // 입력칸이 비어있는지 확인합니다.
     if (goal === '') {
         // 비어있다면 경고창을 띄우고,
-        alert('이루고 싶은 목표를 먼저 입력해주세요!');
+        alert('그대의 염원이 비어있구나. 진정으로 이루고자 하는 목표를 새기지 않고서는 신의 대답을 들을 수 없나니.');
         // 함수를 여기서 바로 끝내버립니다. (아래 코드는 더 이상 실행 안 됨)
         return;
     }
 
     // 만약 코드 상단에 API 키를 안 넣고 실행했다면 화면에 친절하게 안내 문구를 띄워줍니다.
     if (!API_KEY) {
-        const userKey = prompt('앗! API 키가 설정되지 않았습니다. 다시 입력해 주세요:');
+        const userKey = prompt('마나의 흐름이 끊겼도다! 마법진의 정수(API Key)를 다시 한 번 봉헌하라:');
         if (userKey) {
             API_KEY = userKey.trim();
             localStorage.setItem('GEMINI_API_KEY', API_KEY);
-            alert('API 키가 저장되었습니다. 다시 생성 버튼을 눌러주세요!');
+            alert('성스러운 연결이 복구되었도다. 다시 한 번 신의 계시를 청하라!');
         }
         return;
     }
@@ -70,7 +70,7 @@ async function generateQuests() {
     try {
         // 제미나이 AI에게 보낼 프롬프트(명령어)를 만듭니다.
         // JSON 이라는 컴퓨터가 읽기 쉬운 깔끔한 데이터 형태로 대답하라고 매우 강하고 구체적으로 명령합니다.
-        const promptText = `내 목표는 "${goal}"야. 이 목표를 향해 나아가기 위해 오늘 당장 실천할 수 있는 흥미로운 일일 퀘스트 3개를 만들어줘. \n반드시 아래와 같은 JSON 배열 형태로만 대답해줘. 마크다운 기호(\`\`\`json) 등은 절대 쓰지 마.\n[ { "title": "퀘스트 이름", "description": "재미있는 퀘스트 상세 설명", "difficulty": "쉬움" }, ... ]\n난이도는 "쉬움", "보통", "어려움" 중 하나로 적어줘.`;
+        const promptText = `용사여, 그대의 고귀한 목표는 "${goal}"이로구나. 이 여정을 완성하기 위해 오늘 수행해야 할 성스러운 시련(퀘스트) 3가지를 내리노라. \n반드시 아래와 같은 성스러운 텍스트 배열(JSON)의 형태로만 대답하거라. 다른 불필요한 서술은 허락하지 않는다.\n[ { "title": "시련의 명칭", "description": "시련에 대한 신성한 해설", "difficulty": "쉬움" }, ... ]\n난이도는 "쉬움", "보통", "어려움" 중 하나로 규정하노라.`;
 
         // 인터넷을 통해 구글 제미나이 최신 모델(gemini-2.5-flash)에게 요청을 보냅니다 (fetch 사용).
         // await는 "응답이 올 때까지 여기서 잠깐만 기다려!" 라는 뜻입니다.
@@ -140,9 +140,9 @@ async function generateQuests() {
         // 사용자가 알 수 있게 화면에 에러를 알려주는 빨간 카드를 띄워줍니다.
         questContainer.innerHTML = `
             <div class="quest-card" style="border-color: #e74c3c; animation-delay: 0s;">
-                <h3 style="color: #e74c3c;">앗, 마법진에 문제가 생겼어요!</h3>
-                <p>퀘스트를 불러오지 못했습니다. API 키가 정확한지, 인터넷이 연결되어 있는지 확인해보세요.</p>
-                <p style="font-size: 0.8rem; opacity: 0.7;">(상세 에러: ${error.message})</p>
+                <h3 style="color: #e74c3c;">이계의 균열이 감지되었도다!</h3>
+                <p>차원의 통신이 불안정하여 신의 계시가 닿지 못하였으니, 성스러운 마법진(API Key)과 마나의 흐름(인터넷)을 다시 확인하라.</p>
+                <p style="font-size: 0.8rem; opacity: 0.7;">(혼돈의 원인: ${error.message})</p>
             </div>
         `;
     } finally {
